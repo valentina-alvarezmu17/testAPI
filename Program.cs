@@ -1,6 +1,9 @@
 using TestFacturaApi.Models;
 using Microsoft.EntityFrameworkCore;
 
+using TestFacturaApi.Services.Contract;
+using TestFacturaApi.Services.Implementation;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -14,6 +17,10 @@ builder.Services.AddDbContext<test_facturasContext>(options =>
 {
     options.UseSqlServer(builder.Configuration.GetConnectionString("sqlConnection"));
 });
+
+builder.Services.AddScoped<IClienteService, ClienteService>();
+builder.Services.AddScoped<IFactura, FacturaService>();
+
 
 var app = builder.Build();
 
